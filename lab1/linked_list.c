@@ -56,30 +56,128 @@ void linked_list_append(node *head, int val){
 
 /* your implementation goes here */
 
-void linked_list_insert(node *head, int val, int index){
 
+void linked_list_insert(node *head, int val, int index){
+    if(index < 0 || index >= head->count){
+        return;
+    }
+    node *pre = head;
+    node *new_node;
+    int i = 0;
+    while (i < index){
+        pre = pre->next;
+        i++;
+    }
+    new_node = (node*)malloc(sizeof(node));
+    new_node->value = val;
+    new_node->next = pre->next;
+    pre->next = new_node;
+    head->count++;
 }
+
 
 void linked_list_delete(node *head, int index){
-
+    if(index < 0 || index >= head->count){
+        return;
+    }
+    node *pre = head;
+    int i = 0;
+    while (i < index){
+        pre = pre->next;
+        i++;
+    }
+    node *curr = pre->next;
+    pre->next = curr->next;
+    curr->next = NULL;
+    head->count--;
+    free(curr);
 }
+
 
 void linked_list_remove(node *head, int val){
-
+    node *pre = head;
+    while (pre != NULL && pre->next != NULL){
+        if (pre->next->value == val){
+            node *curr = pre->next;
+            pre->next = curr->next;
+            curr->next = NULL;
+            head->count--;
+            free(curr);
+            return;
+        }
+        pre = pre->next;
+    }
 }
+
 
 void linked_list_remove_all(node *head, int val){
-
+    node *pre = head;
+    while (pre != NULL && pre->next != NULL){
+        if(pre->next->value == val){
+            node *curr = pre->next;
+            pre->next = curr->next;
+            head->count--;
+            free(curr);
+        }else{
+            pre = pre->next;
+        }
+    }
 }
+
 
 int linked_list_get(node *head, int index){
-    return 0;
+    if(index < 0 || index >= head->count){
+        return -0x80000000;
+    }
+    int i = 0;
+    node *curr = head->next;
+    while (i < index){
+        curr = curr->next;
+        i++;
+    }
+    return curr->value;
 }
+
 
 int linked_list_search(node *head, int val){
-    return 0;
+    if(head == NULL){
+        return -1;
+    }
+    int index = 0;
+    node *curr = head->next;
+    while (curr != NULL){
+        if (curr->value == val){
+            return index;
+        }
+        curr = curr->next;
+        index++;
+    }
+    return -1;
 }
 
+
 node *linked_list_search_all(node *head, int val){
-    return linked_list_init();
+    if (head == NULL){
+        return NULL;
+    }
+    node *resultHead;
+    node *result;
+    resultHead = (node*)malloc(sizeof(node));
+    resultHead->count = 0;
+    result = resultHead;
+    node *curr = head->next;
+    int index = 0;
+    while (curr != NULL){
+        if (curr->value == val){
+            node *temp = (node*)malloc(sizeof(node));
+            temp->value = index;
+            result->next = temp;
+            temp->next = NULL;
+            result = result->next;
+            resultHead->count++;
+        }
+        curr = curr->next;
+        index++;
+    }
+    return resultHead;
 }
