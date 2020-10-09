@@ -1,11 +1,18 @@
 %{
     #include"lex.yy.c"
-    void yyerror(const char *s){}
     int result;
+    void yyerror(const char *s){ result = 0;}
 %}
 %token LP RP LB RB LC RC
 %%
-String: %empty {}
+String: TrueMatch {result = 1;};
+TrueMatch:
+    | TrueMatch Pair
+    ;
+Pair: LB TrueMatch RB
+    | LC TrueMatch RC
+    | LP TrueMatch RP
+    ;
 %%
 
 int validParentheses(char *expr){
@@ -13,3 +20,5 @@ int validParentheses(char *expr){
     yyparse();
     return result;
 }
+
+
