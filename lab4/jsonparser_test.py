@@ -40,7 +40,17 @@ def check_jsonchecker_fail_syntaxonly():
         total += 1
     print(f'Recovered/Total: {recovered}/{total}')
 
+def check_jsonchecker_pass():
+    data = DATA/'jsonchecker'
+    number = 1
+    for passjson in data.glob('pass*.json'):
+        out = jsonparser_output(passjson)
+        print(number)
+        number += 1
+        print(out)
+
 
 
 # check_jsonchecker_fail_withlexical()
 check_jsonchecker_fail_syntaxonly()
+check_jsonchecker_pass()

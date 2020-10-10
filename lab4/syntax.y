@@ -10,6 +10,9 @@
 
 Json:
       Value
+    | Value COMMA error { puts("comma after the close, recovered"); }
+    | Value RB error { puts("extra close, recovered"); }
+    | Value STRING error { puts("misplaced quoted value, recovered"); }
     ;
 Value:
       Object
@@ -19,6 +22,7 @@ Value:
     | TRUE
     | FALSE
     | VNULL
+    | NUMBER NUMBER error { puts("numbers cannot have leading zeros, recovered"); }
     ;
 Object:
       LC RC
@@ -27,18 +31,27 @@ Object:
 Members:
       Member
     | Member COMMA Members
+    | Member COMMA error { puts("extra comma, recovered"); }
     ;
 Member:
       STRING COLON Value
+    | STRING Value error { puts("missing colon, recovered"); }
+    | STRING COLON COLON error { puts("double colon, recovered"); }
+    | STRING COMMA Value error { puts("comma instead of colon, recovered"); }
     ;
 Array:
       LB RB
     | LB Values RB
     | LB Values RC error { puts("unmatched right bracket, recovered"); }
+    | LB Values error { puts("unclosed array, recovered"); }
     ;
 Values:
       Value
     | Value COMMA Values
+    | Value COMMA error { puts("extra comma, recovered"); }
+    | Value COMMA COMMA error { puts("double extra comma, recovered"); }
+    | COMMA Value error { puts("missing value, recovered"); }
+    | Value COLON Values error { puts("colon instead of comma, recovered"); }
     ;
 %%
 
