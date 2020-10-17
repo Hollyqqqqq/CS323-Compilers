@@ -60,7 +60,19 @@ void printTree(Node* root, int depth, FILE* fp){
         fprintf(fp, "%s (%d)\n", root->name, root->lineNum);
     } else{
         if (root->needDetail){
-            fprintf(fp, "%s: %s\n", root->name, root->text);
+            if (strcmp(root->name, "INT") == 0){
+                char *prefix = malloc(sizeof(char)*3);
+                strncpy(prefix, root->text, 2);
+                int n = 0;
+                if (strcmp(prefix, "0x") == 0 || strcmp(prefix, "0X") == 0){
+                    sscanf(root->text, "%x", &n);
+                }else{
+                    sscanf(root->text, "%d", &n);
+                }
+                fprintf(fp, "%s: %d\n", root->name, n);
+            }else{
+                fprintf(fp, "%s: %s\n", root->name, root->text);
+            }
         }else{
             fprintf(fp, "%s\n", root->name);
         }
