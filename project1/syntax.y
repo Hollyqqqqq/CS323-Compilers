@@ -5,21 +5,22 @@
     void yyerror(const char *s);
     void yySEMIerror();
     void yyRPerror();
+    void yyRCerror();
     void yyMissSpec();
 %}
 %union{
     struct Node* node;
 }
 
-%token <node> INT FLOAT CHAR ID TYPE STRUCT IF ELSE WHILE RETURN 
+%token <node> INT FLOAT CHAR ID TYPE STRUCT IF ELSE WHILE FOR RETURN INCLUDE
 %token <node> DOT SEMI COMMA
 %token <node> ASSIGN LT LE GT GE NE EQ
-%token <node> PLUS MINUS MUL DIV
+%token <node> PLUS MINUS MUL DIV MOD INC DEC ADDASSIGN SUBASSIGN MULASSIGN DIVASSIGN MODASSIGN
 %token <node> AND OR NOT
 %token <node> LP RP LB RB LC RC
 %token <node> UNKNOWN UNKNOWNOP
 
-%type <node> Program ExtDefList ExtDef ExtDecList
+%type <node> Program ExtDefList ExtDef ExtDecList IncludeList
 %type <node> Specifier StructSpecifier
 %type <node> VarDec FunDec VarList ParamDec
 %type <node> CompSt StmtList Stmt
@@ -28,14 +29,14 @@
 
 %nonassoc LOWER_ELSE
 %nonassoc ELSE
-%right ASSIGN
 %left UNKNOWNOP
+%right ASSIGN ADDASSIGN SUBASSIGN MULASSIGN DIVASSIGN MODASSIGN
 %left OR
 %left AND
 %left LT LE GT GE EQ NE 
 %left PLUS MINUS
-%left MUL DIV
-%right NOT
+%left MUL DIV MOD
+%right NOT INC DEC
 %left LP RP LB RB DOT
 
 
@@ -43,7 +44,11 @@
 
 
 Program: 
-      ExtDefList {root=createNonTerminal("Program"); buildTree(root, 1, $1);}
+      IncludeList ExtDefList {root=createNonTerminal("Program"); buildTree(root, 2, $1, $2);}
+    ;
+IncludeList:
+      INCLUDE IncludeList { $$=createNonTerminal("IncludeList"); buildTree($$, 2, $1, $2); }
+    | { $$=createNonTerminal("IncludeList"); buildTree($$, 0); }
     ;
 ExtDefList: 
       ExtDef ExtDefList { $$=createNonTerminal("ExtDefList"); buildTree($$, 2, $1, $2); }
@@ -53,7 +58,9 @@ ExtDef:
       Specifier ExtDecList SEMI { $$=createNonTerminal("ExtDef"); buildTree($$, 3, $1, $2, $3); }
     | Specifier ExtDecList error { yySEMIerror(); }
     | Specifier SEMI { $$=createNonTerminal("ExtDef"); buildTree($$, 2, $1, $2); }
+    | Specifier error { yySEMIerror(); }
     | Specifier FunDec CompSt { $$=createNonTerminal("ExtDef"); buildTree($$, 3, $1, $2, $3); }
+    | error CompSt {errors++; fprintf(fp, "Error type B at Line %d: Missing Specifier and FunDec\n", yylineno);}
     ;
 ExtDecList:
       VarDec { $$=createNonTerminal("ExtDecList"); buildTree($$, 1, $1); }
@@ -100,19 +107,23 @@ StmtList:
     ;
 Stmt:
       Exp SEMI { $$=createNonTerminal("Stmt"); buildTree($$, 2, $1, $2); }
+    | Exp error { yySEMIerror(); }
     | CompSt { $$=createNonTerminal("Stmt"); buildTree($$, 1, $1); }
     | RETURN Exp SEMI { $$=createNonTerminal("Stmt"); buildTree($$, 3, $1, $2, $3); }
-    | IF LP Exp RP Stmt %prec LOWER_ELSE{ $$=createNonTerminal("Stmt"); buildTree($$, 5, $1, $2, $3, $4, $5); }
-    | IF LP Exp RP Stmt ELSE Stmt { $$=createNonTerminal("Stmt"); buildTree($$, 7, $1, $2, $3, $4, $5, $6, $7); }
-    | WHILE LP Exp RP Stmt { $$=createNonTerminal("Stmt"); buildTree($$, 5, $1, $2, $3, $4, $5); }
     | RETURN Exp error { yySEMIerror(); }
+    | IF LP Exp RP Stmt %prec LOWER_ELSE { $$=createNonTerminal("Stmt"); buildTree($$, 5, $1, $2, $3, $4, $5); }
+    | IF LP Exp RP Stmt ELSE Stmt { $$=createNonTerminal("Stmt"); buildTree($$, 7, $1, $2, $3, $4, $5, $6, $7); }
+    | IF LP Exp error { yyRPerror(); }
+    | WHILE LP Exp RP Stmt { $$=createNonTerminal("Stmt"); buildTree($$, 5, $1, $2, $3, $4, $5); }
+    | WHILE LP Exp error { yyRPerror(); }
+    | FOR LP Def Exp SEMI Exp RP Stmt { $$=createNonTerminal("Stmt"); buildTree($$, 8, $1, $2, $3, $4, $5, $6, $7, $8); }
     ;
 
 
 DefList:
       Def DefList { $$=createNonTerminal("DefList"); buildTree($$, 2, $1, $2); }
     | { $$=createNonTerminal("DefList"); buildTree($$, 0); }
-    | error Stmt DefList { yyMissSpec(); }
+    | error Stmt { yyMissSpec(); }
     ;
 Def:
       Specifier DecList SEMI { $$=createNonTerminal("Def"); buildTree($$, 3, $1, $2, $3); }
@@ -142,6 +153,12 @@ Exp:
     | Exp MINUS Exp { $$=createNonTerminal("Exp"); buildTree($$, 3, $1, $2, $3); }
     | Exp MUL Exp { $$=createNonTerminal("Exp"); buildTree($$, 3, $1, $2, $3); }
     | Exp DIV Exp { $$=createNonTerminal("Exp"); buildTree($$, 3, $1, $2, $3); }
+    | Exp MOD Exp { $$=createNonTerminal("Exp"); buildTree($$, 3, $1, $2, $3); }
+    | Exp ADDASSIGN Exp { $$=createNonTerminal("Exp"); buildTree($$, 3, $1, $2, $3); }
+    | Exp SUBASSIGN Exp { $$=createNonTerminal("Exp"); buildTree($$, 3, $1, $2, $3); }
+    | Exp MULASSIGN Exp { $$=createNonTerminal("Exp"); buildTree($$, 3, $1, $2, $3); }
+    | Exp DIVASSIGN Exp { $$=createNonTerminal("Exp"); buildTree($$, 3, $1, $2, $3); }
+    | Exp MODASSIGN Exp { $$=createNonTerminal("Exp"); buildTree($$, 3, $1, $2, $3); }
     | Exp UNKNOWNOP Exp { $$=createNonTerminal("Exp"); buildTree($$, 3, $1, $2, $3); }
     | LP Exp RP { $$=createNonTerminal("Exp"); buildTree($$, 3, $1, $2, $3); }
     | LP Exp error { yyRPerror(); }
@@ -153,6 +170,8 @@ Exp:
     | ID LP error { yyRPerror(); }
     | Exp LB Exp RB { $$=createNonTerminal("Exp"); buildTree($$, 4, $1, $2, $3, $4); }
     | Exp DOT ID { $$=createNonTerminal("Exp"); buildTree($$, 3, $1, $2, $3); }
+    | ID INC { $$=createNonTerminal("Exp"); buildTree($$, 2, $1, $2); }
+    | ID DEC { $$=createNonTerminal("Exp"); buildTree($$, 2, $1, $2); }
     | ID { $$=createNonTerminal("Exp"); buildTree($$, 1, $1); }
     | INT { $$=createNonTerminal("Exp"); buildTree($$, 1, $1); }
     | FLOAT { $$=createNonTerminal("Exp"); buildTree($$, 1, $1); }
@@ -165,7 +184,7 @@ Args:
     ;
 %%
 
-void yyerror(const char *s){/*printf("syntax error\n");*/}
+void yyerror(const char *s){printf("syntax error\n");}
 
 void yySEMIerror(){
     fprintf(fp, "Error type B at Line %d: Missing semicolon ';'\n", yylineno);
@@ -174,6 +193,11 @@ void yySEMIerror(){
 
 void yyRPerror(){
     fprintf(fp, "Error type B at Line %d: Missing closing parenthesis ')'\n", yylineno);
+    errors++;
+}
+
+void yyRCerror(){
+    fprintf(fp, "Error type B at Line %d: Missing closing brace '}'\n", yylineno);
     errors++;
 }
 
@@ -191,12 +215,13 @@ int main(int argc, char ** argv){
         perror(argv[1]);
         exit(-1);
     }
-    int length = strlen(argv[1]);
+    int length = strlen(argv[1])+1;
     char* outPath = (char*)malloc(sizeof(char)*length);
     strcpy(outPath,argv[1]);
-    outPath[length-1] = 't';
-    outPath[length-2] = 'u';
-    outPath[length-3] = 'o';
+    outPath[length-1] = '\0';
+    outPath[length-2] = 't';
+    outPath[length-3] = 'u';
+    outPath[length-4] = 'o';
     fp = fopen(outPath, "w+");
     yyparse();
     if (errors == 0){

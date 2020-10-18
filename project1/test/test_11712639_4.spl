@@ -1,0 +1,7 @@
+struct node{
+    int b = 1;
+    a = 10;
+};
+{
+    float f = 0.1;
+}

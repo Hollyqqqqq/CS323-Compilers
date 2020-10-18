@@ -1,0 +1,13 @@
+int test(){
+    int a = 10；
+    int 00ad = 2;
+    int 0a = 2;
+    int b = 0x0a;
+    int c = 0xg;
+    char d = '@';
+    char e = 'a;
+    char f = '@@';
+    char g = '\x04';
+    float h = 0.0;
+    return 0abc@dfa;
+}

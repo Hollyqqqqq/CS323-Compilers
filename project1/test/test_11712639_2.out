@@ -1,0 +1,9 @@
+Error type A at Line 2: Chinese SEMI
+Error type A at Line 3: Wrong id 00ad
+Error type A at Line 4: Wrong id 0a
+Error type A at Line 5: wrong hex int 0x0a
+Error type A at Line 6: wrong hex int 0xg
+Error type A at Line 8: unknown lexeme 'a
+Error type A at Line 9: wrong char '@@'
+Error type A at Line 10: wrong char '\x04'
+Error type A at Line 12: unknown lexeme 0abc@dfa

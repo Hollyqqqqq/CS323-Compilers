@@ -32,6 +32,7 @@ Node* createNonTerminal(char* name){
     node->text = "";
     node->isTerminal = 0;
     node->needDetail = 0;
+    node->lineNum = 1;
     return node;
 }
 

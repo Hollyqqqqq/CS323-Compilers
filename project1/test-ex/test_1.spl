@@ -1,0 +1,7 @@
+//single line comment
+int test(){
+    /*multiple 
+    line
+    comment*/
+    int i = 0;
+}

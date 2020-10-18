@@ -1,0 +1,19 @@
+int a;
+int test1(int n){
+    if (n < 10){
+        a = 0;
+        if (n < 5){
+            a = 1;
+        }
+    }else if (n > 10){
+        a = 2;
+    }
+    if (n < 10){
+        a = 0;
+        if (n < 5){
+            a = 1;
+        }else{
+            a = 3;
+        }
+    }
+}
