@@ -6,9 +6,8 @@ typedef struct Json
         struct Object *object;
         struct Array *array;
         char *string;
-        enum {INT, FLOAT} number;
+        double number;
         enum {TRUE, FALSE} boolean;
-        enum {NULL} vnull;
     };
 } Json;
 
