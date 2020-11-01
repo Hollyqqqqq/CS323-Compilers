@@ -31,12 +31,12 @@ Json:
     | Value STRING error { puts("misplaced quoted value, recovered"); }
     ;
 Value:
-      Object {$$ = createJson(); $$->object = $1;}
-    | Array {$$ = createJson(); $$->array = $1;}
-    | STRING {$$ = createJson(); $$->string = $1;}
-    | NUMBER {$$ = createJson(); $$->number = $1;}
-    | TRUE {$$ = createJson(); $$->boolean = $1;}
-    | FALSE {$$ = createJson(); $$->boolean = $1;}
+      Object {$$ = createJson(OBJECT_); $$->object = $1;}
+    | Array {$$ = createJson(ARRAY_); $$->array = $1;}
+    | STRING {$$ = createJson(STRING_); $$->string = $1;}
+    | NUMBER {$$ = createJson(NUMBER_); $$->number = $1;}
+    | TRUE {$$ = createJson(BOOLEAN_); $$->boolean = $1;}
+    | FALSE {$$ = createJson(BOOLEAN_); $$->boolean = $1;}
     | VNULL {$$ = $1;}
     | NUMBER NUMBER error { puts("numbers cannot have leading zeros, recovered"); }
     ;

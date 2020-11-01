@@ -27,8 +27,9 @@ typedef struct Array
     struct Array *values;
 } Array;
 
-Json* createJson(){
+Json* createJson(int type){
     Json* json = (Json *) malloc(sizeof(Json));
+    json->category = type;
     return json;
 }
 

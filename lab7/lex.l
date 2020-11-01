@@ -27,7 +27,7 @@ empty [ \n\r\t]
 
 "true" { yylval.boolean = 1; return TRUE; }
 "false" { yylval.boolean = 0; return FALSE; }
-"null" { yylval.json = createJson(); return VNULL; }
+"null" { yylval.json = createJson(VNULL_); return VNULL; }
 
 {string} { yylval.string = yytext; return STRING; }
 {number} { yylval.number = atof(yytext); return NUMBER; }
