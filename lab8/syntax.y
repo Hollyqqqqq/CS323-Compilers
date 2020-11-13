@@ -1,13 +1,19 @@
 %{
     #include <stdbool.h>
     #include"lex.yy.c"
+    #include"stack.h"
     void yyerror(const char*);
+    int table_insert(int* table, char* key);
 
-    bool is_valid = true;  // use this value
+    int is_valid = 1;  // use this value
 %}
+%union{
+    char *string;
+}
 
 %token LC RC LB RB COLON COMMA
-%token STRING NUMBER
+%token <string> STRING
+%token NUMBER
 %token TRUE FALSE VNULL
 %%
 
@@ -24,15 +30,18 @@ Value:
     | VNULL
     ;
 Object:
-      LC RC
-    | LC Members RC
+      LC RC { pop(stack);}
+    | LC Members RC { pop(stack);}
     ;
 Members:
       Member
     | Member COMMA Members
     ;
 Member:
-      STRING COLON Value
+      STRING COLON Value {
+            int result = table_insert(peek(stack), $1);
+            if(result == 0) is_valid = 0;
+        }
     ;
 Array:
       LB RB
@@ -44,6 +53,18 @@ Values:
     ;
 %%
 
+int table_insert(int* table, char* key){
+    int index = key[1] - 'a';
+    if (table[index] == 1)
+    {
+        printf("duplicate key: %s\n", key);
+        return 0;
+    }else
+    {
+        table[index] = 1;
+        return 1;
+    }
+}
 
 int main(int argc, char **argv){
     if(argc != 2) {
@@ -54,6 +75,7 @@ int main(int argc, char **argv){
         perror(argv[1]);
         exit(-1);
     }
+    stack = stack_init();
     yyparse();
     if(is_valid) {
         printf("%d\n", is_valid);
