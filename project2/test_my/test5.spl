@@ -1,0 +1,18 @@
+struct ST{
+    int arr[4][2], arr1[4], val1;
+};
+
+struct ST test(int n){
+    struct ST s;
+    struct ST s1;
+    if(n < 0){
+        s.val1 = n;
+        return s;
+    }else if ( n == 0){
+        s.arr1[0] = n;
+        return s.val1 + s1;
+    }else{
+        s1.arr[0][0] = 0;
+        return (s1);
+    }
+}

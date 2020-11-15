@@ -1,0 +1,18 @@
+struct Person
+{
+  char name[32];
+  struct Person friends[10];
+};
+struct Person test()
+{
+  struct Person tom;
+  struct Person people[10];
+  int i = 0;
+  while (i < 10)
+  {
+    people[i].name[0] = '-';
+    tom.friends[i] = people[i];
+    i = i + 1;
+  }
+  return tom;
+}

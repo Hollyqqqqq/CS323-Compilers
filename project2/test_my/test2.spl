@@ -1,0 +1,6 @@
+struct ST{
+    int arr[4][2], arr1[4], val1;
+    struct Inner{
+        float f;
+    } inner1[2], inner2;
+};

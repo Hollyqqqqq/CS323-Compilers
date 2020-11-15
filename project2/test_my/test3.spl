@@ -1,0 +1,8 @@
+int test(char c){
+    char cc = c, d, e[3];
+    float c;
+    c = 3.0;
+    d = 'd';
+    e[1] = 'e';
+    return 1;
+}

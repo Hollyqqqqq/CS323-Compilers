@@ -1,0 +1,15 @@
+struct ST{
+    int arr[4][2], arr1[4], val1;
+};
+
+int test(){
+    struct ST s;
+    int arr2[3];
+    arr2[1][1] = 3;
+    s.arr2[3] = 2;
+    s.arr[2] = arr2;
+    s.arr1[2][1] = 1;
+    s.arr1[1] = 0;
+    s.val1 = 3.0;
+    return 1;
+}

@@ -1,0 +1,17 @@
+int t(){
+    return 0;
+}
+int test(int n, int m){
+    'c' = n;
+    n = 1 = 2;
+    n == m = 2;
+    n = m = 2;
+    t = n;
+    (n) = m;
+    t() = 'c';
+    -n = m;
+    n && m = 1;
+    n = m && 1;
+    n < m = 2;
+    n + m = 3;
+}

@@ -1,0 +1,4 @@
+int test(){
+    func(func1(a));
+    return 1;
+}

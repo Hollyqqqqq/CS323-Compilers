@@ -1,0 +1,8 @@
+struct st{
+    int a, b[2];
+};
+
+struct st{
+    int c;
+    char c;
+};
