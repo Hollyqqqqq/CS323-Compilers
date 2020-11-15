@@ -1,0 +1,2 @@
+Error type 3 at line 3: c variable is redefined in the same scope
+Error type 5 at line 4: unmatching types on both sides of assignment operator

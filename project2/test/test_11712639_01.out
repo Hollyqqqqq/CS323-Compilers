@@ -1,0 +1,4 @@
+Error type 10 at line 8: applying indexing operator ([...]) on non-array type variables
+Error type 14 at line 9: accessing an undefined structure member
+Error type 10 at line 11: applying indexing operator ([...]) on non-array type variables
+Error type 5 at line 13: unmatching types on both sides of assignment operator

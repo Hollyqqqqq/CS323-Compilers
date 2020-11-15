@@ -1,0 +1,4 @@
+Error type 2 at line 4: test1 function is invoked without definition
+Error type 9 at line 14: the function’s arguments mismatch the declared parameters
+Error type 5 at line 14: unmatching types on both sides of assignment operator
+Error type 9 at line 15: the function’s arguments mismatch the declared parameters

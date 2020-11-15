@@ -1,0 +1,2 @@
+Error type 15 at line 5: redefine structure type st
+Error type 3 at line 7: c variable is redefined in the same scope

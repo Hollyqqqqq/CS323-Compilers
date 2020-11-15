@@ -1,0 +1,3 @@
+Error type 4 at line 7: compare function is redefined
+Error type 8 at line 9: the function’s return value type mismatches the declared type
+Error type 8 at line 11: the function’s return value type mismatches the declared type

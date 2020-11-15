@@ -1,0 +1,3 @@
+Error type 2 at line 2: func function is invoked without definition
+Error type 2 at line 2: func1 function is invoked without definition
+Error type 1 at line 2: a variable is used without definition
