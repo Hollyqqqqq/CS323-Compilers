@@ -1,0 +1,26 @@
+struct A{
+    int n;
+};
+
+struct B{
+    int n;
+};
+
+int test(int n, int m){
+    struct A a;
+    struct B b;
+    if(n < m){
+        int n = n + m;
+        a.n = n;
+        b.n = m;
+    }else if(n == m){
+        int m = n*m;
+        a.n = n;
+        b.n = m;
+    }else{
+        int n = n - m;
+        a.n = n;
+        b.n = m;
+    }
+    return 0;
+}

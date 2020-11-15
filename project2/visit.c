@@ -30,6 +30,8 @@ void visit_ExtDef(Node *node){
         {
             IDType *func = visit_FunDec(node->children[1], type);
             visit_CompSt(node->children[2], func);
+            printf("after visit func, pop table\n");
+            pop(scope_stack);
         }else // Specifier ExtDecList SEMI
         {
             visit_ExtDecList(node->children[1], type);
@@ -61,8 +63,9 @@ TypeTuple* visit_StructSpecifier(Node *node){
         id->name = node->children[1]->text;
         int is_success = symtab_insert(peek(scope_stack), id->name, id);
         if (!is_success) error_type15(node->children[1]->lineNum, node->children[1]->text);
-        printf("table size is %d\n", symtab_size(peek(scope_stack)));           
-        // push(scope_stack, symtab_init());//再建一个table，结构体里的scope
+        printf("table size is %d\n", symtab_size(peek(scope_stack))); 
+        printf("after insert struct name, create new table\n");          
+        push(scope_stack, symtab_init());//再建一个table，结构体里的scope
         id->structure = visit_DefList(node->children[3]);//返回一个FieldList？
         printf("%s id.structure is null? %d\n", id->name, id->structure == NULL);
         FieldList *temp = id->structure;
@@ -71,8 +74,8 @@ TypeTuple* visit_StructSpecifier(Node *node){
             // printf("current struct member is %s, cat is %d\n", temp->name, temp->type->category);
             temp = temp->next;
         }
-        
-        // pop(scope_stack);//当结构体建立完成就pop最顶部的table
+        printf("after visit struct, pop table\n");
+        pop(scope_stack);//当结构体建立完成就pop最顶部的table
     }
     return create_TypeTuple(STRUCTURE, node->children[1]->text);
 }
@@ -151,7 +154,7 @@ IDType* visit_VarDec(Node *node, TypeTuple *type, FieldList *list){
         id->name = type->name;
         if (type->type == STRUCTURE)
         {
-            id->structure = symtab_lookup(peek(scope_stack), type->name)->structure;
+            id->structure = stack_lookup(scope_stack, type->name)->structure;
         }
         
         for (int i = 0; i < type->dim; i++)
@@ -204,6 +207,8 @@ IDType* visit_FunDec(Node *node, TypeTuple *type){
     int is_success = symtab_insert(peek(scope_stack), id->name, id);
     if(!is_success) error_type4(node->children[0]->lineNum, node->children[0]->text);
     printf("table size is %d\n", symtab_size(peek(scope_stack)));
+    printf("after insert func name, create new table\n");
+    push(scope_stack, symtab_init());
     if (node->childrenNum == 4)
     {
         id->function->params = visit_VarList(node->children[2]);
@@ -261,12 +266,19 @@ void visit_Stmt(Node *node, IDType* func){
             if(id->category != UNKNOW_ && !is_same) error_type8(node->children[0]->lineNum);
         }else//if, while
         {
-            // printf("enter if or while\n");
+            printf("enter if or while, create new table\n");
             visit_Exp(node->children[2]);
+            push(scope_stack, symtab_init());
             visit_Stmt(node->children[4], func);
+            printf("after if or while scope, pop table\n");
+            pop(scope_stack);
             if (node->childrenNum == 7)//带有else的情况
             {
+                printf("enter else, create new table\n");
+                push(scope_stack, symtab_init());
                 visit_Stmt(node->children[6], func);
+                printf("after else scope, pop table\n");
+                pop(scope_stack);
             }
         }       
     }else if (node->childrenNum == 1)//CompSt
@@ -284,7 +296,8 @@ IDType* visit_Exp(Node *node){
     {
         printf("enter exp start with ID\n");
         Node* IDnode = node->children[0];
-        IDType *id = symtab_lookup(peek(scope_stack), IDnode->text);
+        IDType *id = stack_lookup(scope_stack, IDnode->text);
+        // printf("id is null or not %d\n", id == NULL);
         if (node->childrenNum == 1)//ID
         {
             // printf("enter ID \n");
@@ -333,7 +346,7 @@ IDType* visit_Exp(Node *node){
                 error_type6(node->children[0]->children[0]->lineNum);
             }else
             {
-                IDType *temp = symtab_lookup(peek(scope_stack), node->children[0]->children[0]->text);
+                IDType *temp = stack_lookup(scope_stack, node->children[0]->children[0]->text);
                 if (temp != NULL && temp->category == FUNCTION)
                 {
                     // printf("************************rvalue2\n");

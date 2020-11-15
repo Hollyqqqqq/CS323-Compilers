@@ -48,6 +48,20 @@ ElementType peek(Stack* s){
     return firstCell->data;
 }
 
+VAL_T stack_lookup(Stack *stack, char *key){
+    Stack *curr_stack = stack->next;
+    while (curr_stack != NULL)
+    {
+        VAL_T id = symtab_lookup(curr_stack->data, key);
+        if (id != NULL)
+        {
+            return id;
+        }
+        curr_stack = curr_stack->next;
+    }
+    return NULL;
+}
+
 void stack_print(Stack* s) {
     Stack* p;
     p = s;

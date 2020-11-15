@@ -23,6 +23,8 @@ ElementType pop(Stack*);
 
 ElementType peek(Stack*);
 
+VAL_T stack_lookup(Stack*, char*);
+
 void stack_print(Stack*);
 
 #endif
