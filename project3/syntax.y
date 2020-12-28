@@ -12,7 +12,7 @@
     struct Node* node;
 }
 
-%token <node> INT FLOAT CHAR ID TYPE STRUCT IF ELSE WHILE FOR RETURN INCLUDE
+%token <node> INT FLOAT CHAR ID TYPE STRUCT IF ELSE WHILE FOR RETURN INCLUDE READ WRITE
 %token <node> DOT SEMI COMMA
 %token <node> ASSIGN LT LE GT GE NE EQ
 %token <node> PLUS MINUS MUL DIV MOD INC DEC ADDASSIGN SUBASSIGN MULASSIGN DIVASSIGN MODASSIGN
@@ -168,6 +168,8 @@ Exp:
     | ID LP Args error { yyRPerror(); }
     | ID LP RP { $$=createNonTerminal("Exp"); buildTree($$, 3, $1, $2, $3); }
     | ID LP error { yyRPerror(); }
+    | READ LP RP { $$=createNonTerminal("Exp"); buildTree($$, 3, $1, $2, $3);}
+    | WRITE LP Exp RP { $$=createNonTerminal("Exp"); buildTree($$, 4, $1, $2, $3, $4); }
     | Exp LB Exp RB { $$=createNonTerminal("Exp"); buildTree($$, 4, $1, $2, $3, $4); }
     | Exp DOT ID { $$=createNonTerminal("Exp"); buildTree($$, 3, $1, $2, $3); }
     | ID INC { $$=createNonTerminal("Exp"); buildTree($$, 2, $1, $2); }
@@ -223,12 +225,23 @@ int main(int argc, char ** argv){
     outPath[length-3] = 'u';
     outPath[length-4] = 'o';
     fp = fopen(outPath, "w+");
+    length -= 1;
+    char* outPath1 = (char*)malloc(sizeof(char)*length);
+    strcpy(outPath1,argv[1]);
+    outPath1[length-1] = '\0';
+    outPath1[length-2] = 'r';
+    outPath1[length-3] = 'i';
+    FILE *fp1 = fopen(outPath1, "w+");
+    //词法、语法分析
     yyparse();
     if (errors == 0){
-        // printTree(root, 0, fp);
-        // fprintf(fp, "\n\n");
-        visit_Program(root, fp);
+        printTree(root, 0, fp);
+        //语义分析
+        // visit_Program(root, fp);
         fclose(fp);
+        //生成中间代码
+        translate_Program(root, fp1);
+        fclose(fp1);
     }
     return 0;
 }

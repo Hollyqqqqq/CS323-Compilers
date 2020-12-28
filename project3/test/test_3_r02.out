@@ -1,0 +1,465 @@
+Program (1)
+  IncludeList (1)
+  ExtDefList (1)
+    ExtDef (1)
+      Specifier (1)
+        TYPE: int
+      FunDec (1)
+        ID: main
+        LP
+        RP
+      CompSt (2)
+        LC
+        DefList (3)
+          Def (3)
+            Specifier (3)
+              TYPE: int
+            DecList (3)
+              Dec (3)
+                VarDec (3)
+                  ID: month
+              COMMA
+              DecList (3)
+                Dec (3)
+                  VarDec (3)
+                    ID: year
+            SEMI
+          DefList (1)
+        StmtList (4)
+          Stmt (4)
+            Exp (4)
+              Exp (4)
+                ID: year
+              ASSIGN
+              Exp (4)
+                READ
+                LP
+                RP
+            SEMI
+          StmtList (5)
+            Stmt (5)
+              Exp (5)
+                Exp (5)
+                  ID: month
+                ASSIGN
+                Exp (5)
+                  READ
+                  LP
+                  RP
+              SEMI
+            StmtList (6)
+              Stmt (6)
+                IF
+                LP
+                Exp (6)
+                  Exp (6)
+                    ID: year
+                  EQ
+                  Exp (6)
+                    LP
+                    Exp (6)
+                      Exp (6)
+                        Exp (6)
+                          ID: year
+                        DIV
+                        Exp (6)
+                          INT: 100
+                      MUL
+                      Exp (6)
+                        INT: 100
+                    RP
+                RP
+                Stmt (6)
+                  CompSt (6)
+                    LC
+                    DefList (1)
+                    StmtList (7)
+                      Stmt (7)
+                        IF
+                        LP
+                        Exp (7)
+                          Exp (7)
+                            ID: year
+                          EQ
+                          Exp (7)
+                            LP
+                            Exp (7)
+                              Exp (7)
+                                Exp (7)
+                                  ID: year
+                                DIV
+                                Exp (7)
+                                  INT: 400
+                              MUL
+                              Exp (7)
+                                INT: 400
+                            RP
+                        RP
+                        Stmt (7)
+                          CompSt (7)
+                            LC
+                            DefList (1)
+                            StmtList (8)
+                              Stmt (8)
+                                IF
+                                LP
+                                Exp (8)
+                                  Exp (8)
+                                    ID: month
+                                  EQ
+                                  Exp (8)
+                                    INT: 2
+                                RP
+                                Stmt (8)
+                                  CompSt (8)
+                                    LC
+                                    DefList (1)
+                                    StmtList (9)
+                                      Stmt (9)
+                                        Exp (9)
+                                          WRITE
+                                          LP
+                                          Exp (9)
+                                            INT: 29
+                                          RP
+                                        SEMI
+                                      StmtList (1)
+                                    RC
+                                ELSE
+                                Stmt (11)
+                                  IF
+                                  LP
+                                  Exp (11)
+                                    Exp (11)
+                                      ID: month
+                                    EQ
+                                    Exp (11)
+                                      LP
+                                      Exp (11)
+                                        Exp (11)
+                                          Exp (11)
+                                            ID: month
+                                          DIV
+                                          Exp (11)
+                                            INT: 2
+                                        MUL
+                                        Exp (11)
+                                          INT: 2
+                                      RP
+                                  RP
+                                  Stmt (11)
+                                    CompSt (11)
+                                      LC
+                                      DefList (1)
+                                      StmtList (12)
+                                        Stmt (12)
+                                          Exp (12)
+                                            WRITE
+                                            LP
+                                            Exp (12)
+                                              INT: 30
+                                            RP
+                                          SEMI
+                                        StmtList (1)
+                                      RC
+                                  ELSE
+                                  Stmt (15)
+                                    Exp (15)
+                                      WRITE
+                                      LP
+                                      Exp (15)
+                                        INT: 31
+                                      RP
+                                    SEMI
+                              StmtList (1)
+                            RC
+                        ELSE
+                        Stmt (16)
+                          CompSt (16)
+                            LC
+                            DefList (1)
+                            StmtList (17)
+                              Stmt (17)
+                                IF
+                                LP
+                                Exp (17)
+                                  Exp (17)
+                                    ID: month
+                                  EQ
+                                  Exp (17)
+                                    INT: 2
+                                RP
+                                Stmt (17)
+                                  CompSt (17)
+                                    LC
+                                    DefList (1)
+                                    StmtList (18)
+                                      Stmt (18)
+                                        Exp (18)
+                                          WRITE
+                                          LP
+                                          Exp (18)
+                                            INT: 28
+                                          RP
+                                        SEMI
+                                      StmtList (1)
+                                    RC
+                                ELSE
+                                Stmt (20)
+                                  IF
+                                  LP
+                                  Exp (20)
+                                    Exp (20)
+                                      ID: month
+                                    EQ
+                                    Exp (20)
+                                      LP
+                                      Exp (20)
+                                        Exp (20)
+                                          Exp (20)
+                                            ID: month
+                                          DIV
+                                          Exp (20)
+                                            INT: 2
+                                        MUL
+                                        Exp (20)
+                                          INT: 2
+                                      RP
+                                  RP
+                                  Stmt (20)
+                                    CompSt (20)
+                                      LC
+                                      DefList (1)
+                                      StmtList (21)
+                                        Stmt (21)
+                                          Exp (21)
+                                            WRITE
+                                            LP
+                                            Exp (21)
+                                              INT: 30
+                                            RP
+                                          SEMI
+                                        StmtList (1)
+                                      RC
+                                  ELSE
+                                  Stmt (23)
+                                    CompSt (23)
+                                      LC
+                                      DefList (1)
+                                      StmtList (24)
+                                        Stmt (24)
+                                          Exp (24)
+                                            WRITE
+                                            LP
+                                            Exp (24)
+                                              INT: 31
+                                            RP
+                                          SEMI
+                                        StmtList (1)
+                                      RC
+                              StmtList (1)
+                            RC
+                      StmtList (1)
+                    RC
+                ELSE
+                Stmt (28)
+                  IF
+                  LP
+                  Exp (28)
+                    Exp (28)
+                      ID: year
+                    EQ
+                    Exp (28)
+                      LP
+                      Exp (28)
+                        Exp (28)
+                          Exp (28)
+                            ID: year
+                          DIV
+                          Exp (28)
+                            INT: 4
+                        MUL
+                        Exp (28)
+                          INT: 4
+                      RP
+                  RP
+                  Stmt (28)
+                    CompSt (28)
+                      LC
+                      DefList (1)
+                      StmtList (29)
+                        Stmt (29)
+                          IF
+                          LP
+                          Exp (29)
+                            Exp (29)
+                              ID: month
+                            EQ
+                            Exp (29)
+                              INT: 2
+                          RP
+                          Stmt (29)
+                            CompSt (29)
+                              LC
+                              DefList (1)
+                              StmtList (30)
+                                Stmt (30)
+                                  Exp (30)
+                                    WRITE
+                                    LP
+                                    Exp (30)
+                                      INT: 29
+                                    RP
+                                  SEMI
+                                StmtList (1)
+                              RC
+                          ELSE
+                          Stmt (32)
+                            IF
+                            LP
+                            Exp (32)
+                              Exp (32)
+                                ID: month
+                              EQ
+                              Exp (32)
+                                LP
+                                Exp (32)
+                                  Exp (32)
+                                    Exp (32)
+                                      ID: month
+                                    DIV
+                                    Exp (32)
+                                      INT: 2
+                                  MUL
+                                  Exp (32)
+                                    INT: 2
+                                RP
+                            RP
+                            Stmt (32)
+                              CompSt (32)
+                                LC
+                                DefList (1)
+                                StmtList (33)
+                                  Stmt (33)
+                                    Exp (33)
+                                      WRITE
+                                      LP
+                                      Exp (33)
+                                        INT: 30
+                                      RP
+                                    SEMI
+                                  StmtList (1)
+                                RC
+                            ELSE
+                            Stmt (35)
+                              CompSt (35)
+                                LC
+                                DefList (1)
+                                StmtList (36)
+                                  Stmt (36)
+                                    Exp (36)
+                                      WRITE
+                                      LP
+                                      Exp (36)
+                                        INT: 31
+                                      RP
+                                    SEMI
+                                  StmtList (1)
+                                RC
+                        StmtList (1)
+                      RC
+                  ELSE
+                  Stmt (39)
+                    CompSt (39)
+                      LC
+                      DefList (1)
+                      StmtList (40)
+                        Stmt (40)
+                          IF
+                          LP
+                          Exp (40)
+                            Exp (40)
+                              ID: month
+                            EQ
+                            Exp (40)
+                              INT: 2
+                          RP
+                          Stmt (40)
+                            CompSt (40)
+                              LC
+                              DefList (1)
+                              StmtList (41)
+                                Stmt (41)
+                                  Exp (41)
+                                    WRITE
+                                    LP
+                                    Exp (41)
+                                      INT: 28
+                                    RP
+                                  SEMI
+                                StmtList (1)
+                              RC
+                          ELSE
+                          Stmt (43)
+                            IF
+                            LP
+                            Exp (43)
+                              Exp (43)
+                                ID: month
+                              EQ
+                              Exp (43)
+                                LP
+                                Exp (43)
+                                  Exp (43)
+                                    Exp (43)
+                                      ID: month
+                                    DIV
+                                    Exp (43)
+                                      INT: 2
+                                  MUL
+                                  Exp (43)
+                                    INT: 2
+                                RP
+                            RP
+                            Stmt (43)
+                              CompSt (43)
+                                LC
+                                DefList (1)
+                                StmtList (44)
+                                  Stmt (44)
+                                    Exp (44)
+                                      WRITE
+                                      LP
+                                      Exp (44)
+                                        INT: 30
+                                      RP
+                                    SEMI
+                                  StmtList (1)
+                                RC
+                            ELSE
+                            Stmt (46)
+                              CompSt (46)
+                                LC
+                                DefList (1)
+                                StmtList (47)
+                                  Stmt (47)
+                                    Exp (47)
+                                      WRITE
+                                      LP
+                                      Exp (47)
+                                        INT: 31
+                                      RP
+                                    SEMI
+                                  StmtList (1)
+                                RC
+                        StmtList (1)
+                      RC
+              StmtList (50)
+                Stmt (50)
+                  RETURN
+                  Exp (50)
+                    INT: 0
+                  SEMI
+                StmtList (1)
+        RC
+    ExtDefList (1)

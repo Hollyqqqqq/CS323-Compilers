@@ -1,0 +1,264 @@
+Program (1)
+  IncludeList (1)
+  ExtDefList (1)
+    ExtDef (1)
+      Specifier (1)
+        TYPE: int
+      FunDec (1)
+        ID: main
+        LP
+        RP
+      CompSt (1)
+        LC
+        DefList (2)
+          Def (2)
+            Specifier (2)
+              TYPE: int
+            DecList (2)
+              Dec (2)
+                VarDec (2)
+                  ID: i
+              COMMA
+              DecList (2)
+                Dec (2)
+                  VarDec (2)
+                    ID: tu1
+                COMMA
+                DecList (2)
+                  Dec (2)
+                    VarDec (2)
+                      ID: tu2
+                  COMMA
+                  DecList (2)
+                    Dec (2)
+                      VarDec (2)
+                        ID: tu3
+                    COMMA
+                    DecList (2)
+                      Dec (2)
+                        VarDec (2)
+                          ID: m
+                      COMMA
+                      DecList (2)
+                        Dec (2)
+                          VarDec (2)
+                            ID: a
+                        COMMA
+                        DecList (2)
+                          Dec (2)
+                            VarDec (2)
+                              ID: b
+                          COMMA
+                          DecList (2)
+                            Dec (2)
+                              VarDec (2)
+                                ID: c
+            SEMI
+          DefList (1)
+        StmtList (3)
+          Stmt (3)
+            Exp (3)
+              Exp (3)
+                ID: a
+              ASSIGN
+              Exp (3)
+                INT: 1
+            SEMI
+          StmtList (4)
+            Stmt (4)
+              Exp (4)
+                Exp (4)
+                  ID: b
+                ASSIGN
+                Exp (4)
+                  INT: 2
+              SEMI
+            StmtList (5)
+              Stmt (5)
+                Exp (5)
+                  Exp (5)
+                    ID: c
+                  ASSIGN
+                  Exp (5)
+                    INT: 3
+                SEMI
+              StmtList (6)
+                Stmt (6)
+                  Exp (6)
+                    Exp (6)
+                      ID: tu1
+                    ASSIGN
+                    Exp (6)
+                      INT: 1
+                  SEMI
+                StmtList (7)
+                  Stmt (7)
+                    Exp (7)
+                      Exp (7)
+                        ID: tu2
+                      ASSIGN
+                      Exp (7)
+                        INT: 1
+                    SEMI
+                  StmtList (8)
+                    Stmt (8)
+                      Exp (8)
+                        Exp (8)
+                          ID: m
+                        ASSIGN
+                        Exp (8)
+                          READ
+                          LP
+                          RP
+                      SEMI
+                    StmtList (9)
+                      Stmt (9)
+                        IF
+                        LP
+                        Exp (9)
+                          Exp (9)
+                            ID: m
+                          LT
+                          Exp (9)
+                            INT: 1
+                        RP
+                        Stmt (10)
+                          Exp (10)
+                            WRITE
+                            LP
+                            Exp (10)
+                              INT: 0
+                            RP
+                          SEMI
+                        ELSE
+                        Stmt (11)
+                          IF
+                          LP
+                          Exp (11)
+                            Exp (11)
+                              Exp (11)
+                                ID: m
+                              EQ
+                              Exp (11)
+                                INT: 1
+                            OR
+                            Exp (11)
+                              Exp (11)
+                                ID: m
+                              EQ
+                              Exp (11)
+                                INT: 2
+                          RP
+                          Stmt (12)
+                            Exp (12)
+                              WRITE
+                              LP
+                              Exp (12)
+                                INT: 1
+                              RP
+                            SEMI
+                          ELSE
+                          Stmt (13)
+                            IF
+                            LP
+                            Exp (13)
+                              Exp (13)
+                                ID: m
+                              GT
+                              Exp (13)
+                                INT: 2
+                            RP
+                            Stmt (13)
+                              CompSt (13)
+                                LC
+                                DefList (1)
+                                StmtList (14)
+                                  Stmt (14)
+                                    Exp (14)
+                                      Exp (14)
+                                        ID: i
+                                      ASSIGN
+                                      Exp (14)
+                                        INT: 3
+                                    SEMI
+                                  StmtList (15)
+                                    Stmt (15)
+                                      WHILE
+                                      LP
+                                      Exp (15)
+                                        Exp (15)
+                                          ID: i
+                                        LE
+                                        Exp (15)
+                                          ID: m
+                                      RP
+                                      Stmt (15)
+                                        CompSt (15)
+                                          LC
+                                          DefList (1)
+                                          StmtList (16)
+                                            Stmt (16)
+                                              Exp (16)
+                                                Exp (16)
+                                                  ID: tu3
+                                                ASSIGN
+                                                Exp (16)
+                                                  Exp (16)
+                                                    ID: tu1
+                                                  PLUS
+                                                  Exp (16)
+                                                    ID: tu2
+                                              SEMI
+                                            StmtList (17)
+                                              Stmt (17)
+                                                Exp (17)
+                                                  Exp (17)
+                                                    ID: tu1
+                                                  ASSIGN
+                                                  Exp (17)
+                                                    ID: tu2
+                                                SEMI
+                                              StmtList (18)
+                                                Stmt (18)
+                                                  Exp (18)
+                                                    Exp (18)
+                                                      ID: tu2
+                                                    ASSIGN
+                                                    Exp (18)
+                                                      ID: tu3
+                                                  SEMI
+                                                StmtList (19)
+                                                  Stmt (19)
+                                                    Exp (19)
+                                                      Exp (19)
+                                                        ID: i
+                                                      ASSIGN
+                                                      Exp (19)
+                                                        Exp (19)
+                                                          ID: i
+                                                        PLUS
+                                                        Exp (19)
+                                                          INT: 1
+                                                    SEMI
+                                                  StmtList (1)
+                                          RC
+                                    StmtList (21)
+                                      Stmt (21)
+                                        Exp (21)
+                                          WRITE
+                                          LP
+                                          Exp (21)
+                                            ID: tu3
+                                          RP
+                                        SEMI
+                                      StmtList (1)
+                                RC
+                      StmtList (23)
+                        Stmt (23)
+                          RETURN
+                          Exp (23)
+                            INT: 0
+                          SEMI
+                        StmtList (1)
+        RC
+    ExtDefList (1)

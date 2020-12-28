@@ -5,6 +5,7 @@
     #include "idtype.h"
     #include "stack.h"
     #include "symtab.h"
+    #include "TAC.h"
     int errors = 0;
     FILE *fp;
 %}
@@ -78,6 +79,14 @@ UnknownStr [0-9a-zA-Z]*['"@$#?`~]([0-9a-zA-Z]*[@$#?`~]*)*
     yylval.node = createTerminal("RETURN", "", yylineno, 0);
     return RETURN; 
     }
+"read" {
+    yylval.node = createTerminal("READ", "", yylineno, 0);
+    return READ; 
+}
+"write" {
+    yylval.node = createTerminal("WRITE", "", yylineno, 0);
+    return WRITE; 
+}
 {type} {
     // printf("TYPE\n");
     yylval.node = createTerminal("TYPE", yytext, yylineno, 1);
